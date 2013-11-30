@@ -18,4 +18,5 @@
 .DS_STORE
 vendor/bundle
 
-db/seeds.rb
+# Ignore application configuration
+/config/application.yml
