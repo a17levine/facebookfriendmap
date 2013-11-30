@@ -17,3 +17,5 @@
 
 .DS_STORE
 vendor/bundle
+
+db/seeds.rb
