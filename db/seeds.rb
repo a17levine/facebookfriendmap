@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 def add_user_and_friends(access_token)
 	graph = Koala::Facebook::API.new(access_token)
 	friends = graph.get_connections("me","friends")
@@ -44,9 +36,9 @@ def create_mutual_friendships
 	end
 end
 
-#alexs friends
+# add alexs friends
 add_user_and_friends(ENV["ALEX_FACEBOOK_ACCESS_TOKEN"])
-#charlottes friends
+# add charlottes friends
 add_user_and_friends(ENV["CHARLOTTE_FACEBOOK_ACCESS_TOKEN"])
 
 create_mutual_friendships

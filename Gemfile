@@ -6,6 +6,7 @@ gem 'rails', '4.0.1'
 gem 'koala'
 gem 'pry'
 gem 'figaro'
+gem "d3-rails"
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

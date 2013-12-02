@@ -1,0 +1,29 @@
+{
+  "nodes": [
+    {
+      "name": "Alex Levine",
+      "group": 1,
+      "facebook_photo": "http://profile.ak.fbcdn.net/hprofile-ak-prn1/371341_1232340146_1156645370_q.jpg"
+    },
+    {
+      "name": "Charlotte Giles",
+      "group": 1
+    },
+    {
+      "name": "Eric Levine",
+      "group": 1
+    }
+    ,
+    {
+      "name": "Jo Giles",
+      "group": 1
+    }
+  ],
+  "links": [
+    {
+      "source": 1,
+      "target": 0,
+      "value": 100
+    }
+  ]
+}
