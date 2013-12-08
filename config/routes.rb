@@ -14,7 +14,12 @@ Facebookfriendmap::Application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  resources :graph
+  resources :graph do
+    resources :entrances
+  end
+  
+  match 'graph/welcome' => 'graph#welcome', :via => :get
+  match 'graph/welcome' => 'graph#entrance', :via => :post
 
   # Example resource route with options:
   #   resources :products do

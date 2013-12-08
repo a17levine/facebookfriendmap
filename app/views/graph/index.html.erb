@@ -1,12 +1,26 @@
+<h1>facebook friend map! // makersquare holiday party</h1>
+
 <style>
 
+h1 {
+  text-align: center;
+}
+
+/*svg {
+  background-color: blue;
+}*/
+
 .link {
-  stroke: #ccc;
+  stroke: #3B5998;
+  stroke-width: 1px;
 }
 
 .node text {
   pointer-events: none;
-  font: 10px sans-serif;
+  font: 30px sans-serif;
+}
+
+.node image {
 }
 
 </style>
@@ -14,8 +28,8 @@
 
 <script>
 
-var width = 960,
-    height = 500
+var width = window.innerWidth,
+    height = window.innerHeight
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
@@ -23,8 +37,8 @@ var svg = d3.select("body").append("svg")
 
 var force = d3.layout.force()
     .gravity(.05)
-    .distance(100)
-    .charge(-100)
+    .distance(200)
+    .charge(-1000)
     .size([width, height]);
 
 d3.json("../graph.json", function(error, json) {
@@ -36,7 +50,8 @@ d3.json("../graph.json", function(error, json) {
   var link = svg.selectAll(".link")
       .data(json.links)
     .enter().append("line")
-      .attr("class", "link");
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
 
   var node = svg.selectAll(".node")
       .data(json.nodes)
@@ -51,10 +66,10 @@ d3.json("../graph.json", function(error, json) {
       .attr("width", 30)
       .attr("height", 30);
 
-  node.append("text")
-      .attr("dx", 25)
-      .attr("dy", ".35em")
-      .text(function(d) { return d.name });
+  // node.append("text")
+  //     .attr("dx", 25)
+  //     .attr("dy", ".35em")
+  //     .text(function(d) { return d.name });
 
   force.on("tick", function() {
     link.attr("x1", function(d) { return d.source.x; })

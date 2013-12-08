@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require d3
 //= require turbolinks
+//= require formatter
 //= require_tree .

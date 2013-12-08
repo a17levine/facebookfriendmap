@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  phone: MyString
+  facebook_token: MyString
+  user_name: MyString
+
+two:
+  phone: MyString
+  facebook_token: MyString
+  user_name: MyString
