@@ -36,20 +36,17 @@ class User < ActiveRecord::Base
 	end
 
 	def mutual_friendships
-		# user id 4, 5, 6, 7,8 all have mutual friends with user 76
 		all_mutual_friends_ids = self.mutual_friendships_ids
 		
 		mutual_friendships_array =  all_mutual_friends_ids.map do |id|
 			hash = {other_guest: User.find(id)}
 			hash[:mutual_friends] = []
 			unique_mutual_friends = Set.new	
-			# hash[:mutual_friends] = MutualFriendship.where("user_at_party = ? OR user_at_party_2 = ?", self.id, self.id).where("user_at_party = ? OR user_at_party_2 = ?", id, id).map do |mfobj|
-			# 	User.find(mfobj.mutual_friend)
-			# end
-			# binding.pry
-			MutualFriendship.where("user_at_party = ? AND user_at_party_2 = ?", self.id, id).where("user_at_party = ? OR user_at_party_2 = ?", id, id).each do |mfobj|
+
+			MutualFriendship.where("user_at_party = ? AND user_at_party_2 = ?", self.id, id).each do |mfobj|
 				unique_mutual_friends << mfobj.mutual_friend
 			end
+
 			MutualFriendship.where("user_at_party = ? AND user_at_party_2 = ?", id, self.id).each do |mfobj|
 				unique_mutual_friends << mfobj.mutual_friend
 			end
