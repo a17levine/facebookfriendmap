@@ -36,7 +36,7 @@ class Entrance < ActiveRecord::Base
 			mutual_friends_array = first_partygoer_friends_array & second_partygoer_friends_array
 
 			mutual_friends_array.each do |mf|
-				MutualFriendship.create(user_at_party: first_partygoer, user_at_party_2: second_partygoer, mutual_friend: mf)
+				MutualFriendship.find_or_create_by(user_at_party: first_partygoer, user_at_party_2: second_partygoer, mutual_friend: mf)
 			end
 		end
 	end

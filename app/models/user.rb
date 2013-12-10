@@ -18,4 +18,46 @@ class User < ActiveRecord::Base
 		Entrance.create_mutual_friendships
 		Entrance.create_graph
 	end
+
+
+	# returns MutualFriendship objects which include user
+
+	def mutual_friendships_ids
+		all_mutual_friendships = MutualFriendship.where("user_at_party = ? OR user_at_party_2 = ?", self.id, self.id)
+		all_mutual_friends_ids = Set.new
+		all_mutual_friendships.each do |mf|
+			if mf.user_at_party == self.id
+				all_mutual_friends_ids << mf.user_at_party_2
+			elsif mf.user_at_party_2 == self.id
+				all_mutual_friends_ids << mf.user_at_party
+			end
+		end
+		all_mutual_friends_ids
+	end
+
+	def mutual_friendships
+		# user id 4, 5, 6, 7,8 all have mutual friends with user 76
+		all_mutual_friends_ids = self.mutual_friendships_ids
+		
+		mutual_friendships_array =  all_mutual_friends_ids.map do |id|
+			hash = {other_guest: User.find(id)}
+			hash[:mutual_friends] = []
+			unique_mutual_friends = Set.new	
+			# hash[:mutual_friends] = MutualFriendship.where("user_at_party = ? OR user_at_party_2 = ?", self.id, self.id).where("user_at_party = ? OR user_at_party_2 = ?", id, id).map do |mfobj|
+			# 	User.find(mfobj.mutual_friend)
+			# end
+			# binding.pry
+			MutualFriendship.where("user_at_party = ? AND user_at_party_2 = ?", self.id, id).where("user_at_party = ? OR user_at_party_2 = ?", id, id).each do |mfobj|
+				unique_mutual_friends << mfobj.mutual_friend
+			end
+			MutualFriendship.where("user_at_party = ? AND user_at_party_2 = ?", id, self.id).each do |mfobj|
+				unique_mutual_friends << mfobj.mutual_friend
+			end
+			hash[:mutual_friends] = unique_mutual_friends.map {|umf| User.find(umf)}
+			hash
+		end
+		mutual_friendships_array.sort_by! {|mf| mf[:mutual_friends].count}.reverse!
+		mutual_friendships_array
+	end
+
 end

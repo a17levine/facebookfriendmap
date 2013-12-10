@@ -16,6 +16,7 @@ Facebookfriendmap::Application.routes.draw do
 
   resources :graph do
     resources :entrances
+    resources :users
   end
   
   match 'graph/welcome' => 'graph#welcome', :via => :get

@@ -2,47 +2,38 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).ready -> 
-	new Formatter(document.getElementById("phone-input"),
-  pattern: "({{999}}) {{999}}.{{9999}}"
-  persistent: true
-	)
+window.createGraph = ->
+  $("svg").remove()
+  width = window.innerWidth
+  height = window.innerHeight
+  svg = d3.select("body").append("svg").attr("width", width).attr("height", height)
+  force = d3.layout.force().gravity(.5).distance(400).charge(-500).size([width, height])
+  d3.json "../../graph.json", (error, json) ->
+    force.nodes(json.nodes).links(json.links).start()
+    link = svg.selectAll(".link").data(json.links).enter().append("line").attr("class", "link").style("stroke-width", (d) ->
+      Math.sqrt(d.value) / 8
+    )
+    # link = svg.selectAll(".link").data(json.links).enter().append("line").attr("class", "link").style("stroke-width", 1)
+    node = svg.selectAll(".node").data(json.nodes).enter().append("g").attr("class", "node").call(force.drag)
+    node.append("image").attr("xlink:href", (d) ->
+      d.facebook_photo
+    ).attr("x", -8).attr("y", -8).attr("width", 30).attr "height", 30
+    
+    # node.append("text")
+    #     .attr("dx", 25)
+    #     .attr("dy", ".35em")
+    #     .text(function(d) { return d.name });
+    force.on "tick", ->
+      link.attr("x1", (d) ->
+        d.source.x
+      ).attr("y1", (d) ->
+        d.source.y
+      ).attr("x2", (d) ->
+        d.target.x
+      ).attr "y2", (d) ->
+        d.target.y
 
-	window.fbAsyncInit = ->
-  
-  # init the FB JS SDK
-  FB.init
-    appId: "680908225263965" # App ID from the app dashboard
-    status: true # Check Facebook Login status
-    xfbml: true # Look for social plugins on the page
+      node.attr "transform", (d) ->
+        "translate(" + d.x + "," + d.y + ")"
 
-
-
-	# Additional initialization code such as adding Event Listeners goes here
-
-	# Load the SDK asynchronously
-	((d, s, id) ->
-	  js = undefined
-	  fjs = d.getElementsByTagName(s)[0]
-	  return  if d.getElementById(id)
-	  js = d.createElement(s)
-	  js.id = id
-	  js.src = "http://connect.facebook.net/en_US/all.js"
-	  fjs.parentNode.insertBefore js, fjs
-	) document, "script", "facebook-jssdk"
-
-	$("#loginbutton").click ->
-  FB.login (response) ->
-    if response.authResponse
-      console.log "the access token is " + FB.getAccessToken()
-      FB.api "/me", (response) ->
-        console.log "Good to see you, " + response.name + "."
-        phone = $("#phone-input").val()
-        console.log "Phone number is "+ phone
-        console.log "This is when we'd post your access token and phone number to the server"
-        console.log "Logging you out"
-        FB.logout()
-
-    else
-      console.log "User cancelled login or did not fully authorize."
-
+createGraph()

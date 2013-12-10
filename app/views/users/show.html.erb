@@ -1,0 +1,10 @@
+<h1><%= @user.name  %></h1>
+
+<% @mutual_friendships.each do |mf| %>
+<p> <%= mf[:other_guest].name %> </p>
+<ul>
+	<% mf[:mutual_friends].each do |f| %> 
+		<li><%= f.name %></li>
+	<% end %>
+</ul>
+<% end %>

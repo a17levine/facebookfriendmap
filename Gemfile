@@ -7,6 +7,11 @@ gem 'koala'
 gem 'pry'
 gem 'figaro'
 gem "d3-rails"
+gem 'foundation-rails'
+
+group :development do
+	gem 'hirb'
+end
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
