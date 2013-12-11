@@ -35,5 +35,3 @@ window.createGraph = ->
 
       node.attr "transform", (d) ->
         "translate(" + d.x + "," + d.y + ")"
-
-createGraph()

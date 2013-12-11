@@ -27,7 +27,8 @@ svg {
 </style>
 <body>
 
-<script>
-
-
-</script>
+<% content_for :javascript %>
+	<script type="text/javascript">
+		createGraph();
+	</script>
+<% end %>
