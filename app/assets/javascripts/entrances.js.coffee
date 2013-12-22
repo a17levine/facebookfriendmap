@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-launchEntrancesJS = ->
+window.launchEntrancesJS = ->
   $(document).ready -> 
   	new Formatter(document.getElementById("phone-input"),
     pattern: "({{999}}) {{999}}.{{9999}}"
@@ -41,8 +41,8 @@ launchEntrancesJS = ->
           phone = $("#phone-input").val()
           console.log "Phone number is "+ phone
           $("#entrance_facebook_token").val(FB.getAccessToken())
-          console.log "Logging you out"
-          FB.logout()
+          #console.log "Logging you out"
+          #FB.logout()
           console.log "Posting access token and phone number to the server"
           $("#hidden_submit").click()
       else

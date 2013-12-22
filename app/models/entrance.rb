@@ -1,5 +1,7 @@
 class Entrance < ActiveRecord::Base
 
+	before_save :process_entrance
+
 	def self.add_user_and_friends(access_token)
 		graph = Koala::Facebook::API.new(access_token)
 		friends = graph.get_connections("me","friends")
@@ -16,7 +18,6 @@ class Entrance < ActiveRecord::Base
 			user = User.find_or_create_by_facebook_id(name: f["name"], facebook_id: f["id"])
 			original_user.friendships.create(friend: user.id)
 		end	
-
 	end
 
 	def self.create_mutual_friendships
@@ -73,8 +74,20 @@ class Entrance < ActiveRecord::Base
 		return graph_ruby_hash
 	end
 
-	def send_sms_for_user_page
+	def send_sms_for_user_page(phone_number)
 			
 	end
 
+	protected
+
+	def process_entrance
+		puts "Process entrance running"
+		Entrance.add_user_and_friends(self.facebook_token)
+		puts "User added"
+		Entrance.create_mutual_friendships
+		puts "Mutual friendships created"
+		Entrance.create_graph
+		puts "Graph created"
+		# send_sms_for_user_page(self.phone)
+	end
 end

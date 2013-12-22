@@ -5,7 +5,7 @@
   <% count = 1 %>
   <% @mutual_friendships.each do |mf| %>
   <dd>
-     <a href="#panel<%= count %>"><%= mf[:other_guest].name %> [<%= mf[:mutual_friends].count %> mutual friends]</a>
+     <a href="#panel<%= count %>"><%= image_tag mf[:other_guest].facebook_pic_small %><%= mf[:other_guest].name %> [<%= mf[:mutual_friends].count %> mutual friends]</a>
     <div id="panel<%= count %>" class="content">
       <ul>
         <% mf[:mutual_friends].each do |f| %> 

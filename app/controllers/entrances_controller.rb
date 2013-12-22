@@ -6,7 +6,16 @@ class EntrancesController < ApplicationController
 	end
 
 	def create
+		@entrance = Entrance.new(entrances_params)
+		if @entrance.save
+			
+		end
 		render nothing: true
-		# binding.pry
 	end
+
+	private
+
+  def entrances_params
+    params.require(:entrance).permit(:phone, :facebook_token, :graph_id)
+  end
 end

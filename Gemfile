@@ -8,9 +8,11 @@ gem 'pry'
 gem 'figaro'
 gem "d3-rails"
 gem 'foundation-rails'
+gem 'sidekiq'
 
 group :development do
 	gem 'hirb'
+	gem 'quiet_assets'
 end
 
 # Use sqlite3 as the database for Active Record

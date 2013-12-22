@@ -4,7 +4,7 @@
 	<h4>Find mutual friendships at this party!</h4>
 
 	<%= form_for [@graph, @entrance], remote: true do |f| %>
-	  <%= f.telephone_field :phone, id: 'phone-input', class: "large-12 columns" %>
+	  <%= f.telephone_field :phone, id: 'phone-input', class: "large-12 columns", placeholder: 'type your mobile number here' %>
 	  <%= f.hidden_field :facebook_token %>
 	  <%= f.submit "Send to server", :style => "display:none", id:'hidden_submit'   %>
 	<% end %>
@@ -12,7 +12,7 @@
 </div>
 
 
-<% content_for :javascript %>
+<% content_for :javascript do %>
 	<script type="text/javascript">
 		launchEntrancesJS();
 	</script>
