@@ -2,25 +2,40 @@ class Entrance < ActiveRecord::Base
 
 	before_save :process_entrance
 
-	def self.add_user_and_friends(access_token)
+	def add_user_and_friends(access_token)
 		graph = Koala::Facebook::API.new(access_token)
 		friends = graph.get_connections("me","friends")
 		original_user_profile = graph.get_object("me")
+		self.user_name = original_user_profile["name"]
 
-		#create the user who is inputting the data
-		original_user = User.create(name: original_user_profile["name"], 
+
+		# find or create the user who is inputting the data
+
+		original_user = User.where(facebook_id: original_user_profile["id"]).first
+		
+		if original_user
+			original_user.at_party = true
+			original_user.facebook_pic_small = graph.get_picture(original_user_profile["id"])
+			original_user.phone = self.phone
+			original_user.save
+		else
+			original_user = User.create(name: original_user_profile["name"], 
 																facebook_id: original_user_profile["id"], 
 																at_party: true,
-																facebook_pic_small: graph.get_picture(original_user_profile["id"]))
+																facebook_pic_small: graph.get_picture(original_user_profile["id"]),
+																phone: self.phone)
+		end
 
 		#add users friends as friendships
 		friends.each do |f|
 			user = User.find_or_create_by_facebook_id(name: f["name"], facebook_id: f["id"])
 			original_user.friendships.create(friend: user.id)
 		end	
+
+		return original_user
 	end
 
-	def self.create_mutual_friendships
+	def create_mutual_friendships
 
 		# this goes through and finds all the unique combinations between the users at the party
 		partygoers_ids = User.where(at_party: true).map { |u| u.id }
@@ -68,23 +83,41 @@ class Entrance < ActiveRecord::Base
 		# add user nodes
 
 		unique_users_at_party.each do |unique_user_id|
-		graph_ruby_hash["nodes"]	<< User.find(unique_user_id).translate_to_node_hash
+			graph_ruby_hash["nodes"]	<< User.find(unique_user_id).translate_to_node_hash
 		end
+
 		File.open("public/graph.json", 'w') {|f| f.write(graph_ruby_hash.to_json) }
 		return graph_ruby_hash
 	end
 
-	def send_sms_for_user_page(phone_number)
-			
+	def send_sms_for_user_page(user,graph_id)
+			# makes a twilio client
+			@twilio_client = Twilio::REST::Client.new(ENV['TWILIO_SID'],ENV['TWILIO_TOKEN'])
+			# grabs the URL to send the person, using the user object and graph_id from parameters
+			users_custom_url = Rails.application.routes.url_helpers.graph_user_url(graph_id,user)
+			message = "See your custom guest list & mutual friends at: #{users_custom_url}"
+			# sends text to person with a cute string around it
+			@twilio_client.account.sms.messages.create(
+				:from => "+1#{ENV['TWILIO_PHONE_NUMBER']}", 
+				:to => user.phone,
+				:body => message
+	    )
+	end
+
+	def normalize_params
+		self.phone = self.phone.gsub(/[^0-9a-z]/i, '')
+
 	end
 
 	protected
 
 	def process_entrance
 		puts "Process entrance running"
-		Entrance.add_user_and_friends(self.facebook_token)
+		normalize_params
+		user = self.add_user_and_friends(self.facebook_token)
+		send_sms_for_user_page(user,1)
 		puts "User added"
-		Entrance.create_mutual_friendships
+		self.create_mutual_friendships
 		puts "Mutual friendships created"
 		Entrance.create_graph
 		puts "Graph created"

@@ -9,6 +9,7 @@ gem 'figaro'
 gem "d3-rails"
 gem 'foundation-rails'
 gem 'sidekiq'
+gem 'twilio-ruby'
 
 group :development do
 	gem 'hirb'

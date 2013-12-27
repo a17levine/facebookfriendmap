@@ -14,6 +14,8 @@ Facebookfriendmap::Application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
+  default_url_options :host => "localhost:3000"
+
   resources :graph do
     resources :entrances
     resources :users
