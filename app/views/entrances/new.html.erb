@@ -1,14 +1,22 @@
+<% content_for :title, "mutualmap | welcome" %>
 <div class="row">
-	<h1>mutualmap</h1>
-	<h2>for the MakerSquare Holiday Party</h2>
-	<h4>Find mutual friendships at this party!</h4>
-
-	<%= form_for [@graph, @entrance], remote: true do |f| %>
-	  <%= f.telephone_field :phone, id: 'phone-input', class: "large-12 columns", placeholder: 'type your mobile number here' %>
-	  <%= f.hidden_field :facebook_token %>
-	  <%= f.submit "Send to server", :style => "display:none", id:'hidden_submit'   %>
-	<% end %>
-	<button id="loginbutton">Sign-in with Facebook</button>
+	<div class="small-12 large-6 columns">
+		<h1>mutualmap</h1>
+		
+		<h4>for finding out who here knows your friends</h4>
+		<small class='row'>check in with your cell # + facebook account</small>
+		<%= form_for [@graph, @entrance], :html => {:class => 'row'}, remote: true do |f| %>
+			<div class='small-6 columns phone-container'>
+				<i class="fa fa-mobile phone-icon"></i>
+			  <%= f.telephone_field :phone, id: 'phone-input', placeholder: 'type your mobile number here' %>
+			</div>
+		  <%= f.hidden_field :facebook_token %>
+		  <%= f.submit "Send to server", :style => "display:none", id:'hidden_submit'   %>
+		<% end %>
+		<div class='row small-2 large-2 columns'>
+			<button id="loginbutton">sign-in with facebook</button>
+		</div>
+	</div>
 </div>
 
 

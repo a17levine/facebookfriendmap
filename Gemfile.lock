@@ -49,6 +49,8 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    font-awesome-rails (4.0.3.0)
+      railties (>= 3.2, < 5.0)
     foundation-rails (5.0.2.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
@@ -76,6 +78,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.8.2)
     multipart-post (1.2.0)
+    pg (0.17.0)
     polyglot (0.3.3)
     pry (0.9.12.3)
       coderay (~> 1.0)
@@ -156,11 +159,13 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   d3-rails
   figaro
+  font-awesome-rails
   foundation-rails
   hirb
   jbuilder (~> 1.2)
   jquery-rails
   koala
+  pg
   pry
   quiet_assets
   rails (= 4.0.1)

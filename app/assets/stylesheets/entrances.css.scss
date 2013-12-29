@@ -1,3 +1,19 @@
 // Place all the styles related to the Entrances controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#phone-input {
+	width: 170px;
+}
+
+.phone-icon {
+	font-size: 2.4em;
+	float: left;
+	margin-right: 2px;
+	letter-spacing: 8px;
+	color: gray;
+}
+
+.phone-container {
+	min-width: 256px;
+}

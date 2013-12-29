@@ -4,20 +4,24 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.1'
 
 gem 'koala'
-gem 'pry'
-gem 'figaro'
 gem "d3-rails"
 gem 'foundation-rails'
 gem 'sidekiq'
 gem 'twilio-ruby'
+gem "font-awesome-rails"
 
 group :development do
 	gem 'hirb'
 	gem 'quiet_assets'
+	gem 'pry'
+	gem 'figaro'
+	gem 'sqlite3'
 end
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+group :production do 
+	gem 'pg'
+end
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
