@@ -3,9 +3,9 @@
 	<div class="small-12 large-6 columns">
 		<h1>mutualmap</h1>
 		
-		<h4>for finding out who here knows your friends</h4>
+		<h4>who here knows your friends?</h4>
 		<small class='row'>check in with your cell # + facebook account</small>
-		<%= form_for [@graph, @entrance], :html => {:class => 'row'}, remote: true do |f| %>
+		<%= form_for [@graph, @entrance], :html => {:class => 'row entrance-form'}, remote: true do |f| %>
 			<div class='small-6 columns phone-container'>
 				<i class="fa fa-mobile phone-icon"></i>
 			  <%= f.telephone_field :phone, id: 'phone-input', placeholder: 'type your mobile number here' %>
@@ -15,6 +15,7 @@
 		<% end %>
 		<div class='row small-2 large-2 columns'>
 			<button id="loginbutton">sign-in with facebook</button>
+			<p id="status-text"></p>
 		</div>
 	</div>
 </div>
