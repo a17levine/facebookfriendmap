@@ -8,7 +8,7 @@
     <div id="panel<%= count %>" class="content">
       <ul>
         <% mf[:mutual_friends].each do |f| %> 
-          <li><%= f.name %></li>
+          <li><%= link_to f.name, "http://www.facebook.com/#{f.facebook_id}"  %></li>
         <% end %>
       </ul>
     </div>
