@@ -2,6 +2,13 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+window.start = ->
+  setTimeout (->
+    location.reload()
+    start()
+  ), 13000
+
+
 window.createGraph = ->
   $("svg").remove()
   width = window.innerWidth

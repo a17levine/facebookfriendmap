@@ -1,0 +1,7 @@
+<h1>Guest List</h1>
+
+<% @all_guests.each do |guest| %>
+	<%= image_tag guest.facebook_pic_small %><p><%= link_to guest.name, graph_user_path(1, guest.id) %>
+	</p>
+
+<% end %>

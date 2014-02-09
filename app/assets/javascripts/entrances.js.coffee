@@ -11,6 +11,7 @@ showUserText = (notificationString) ->
   return
 
 $(document).on "ajax:success", ".entrance-form", ->
+  $(".status-loading").hide()
   console.log "Friends successfully added to the map. Logging out..."
   FB.logout()
   showUserText "friends added! you are now logged out of facebook"
@@ -52,6 +53,7 @@ window.launchEntrancesJS = ->
     $("#loginbutton").attr "disabled", "disabled"
     FB.login (response) ->
       if response.authResponse
+        $(".status-loading").show()
         $("#status-text").text("processing friends")
         console.log "the access token is " + FB.getAccessToken()
         FB.api "/me", (response) ->
