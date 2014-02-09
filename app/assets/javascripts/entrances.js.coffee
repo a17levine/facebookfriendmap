@@ -2,16 +2,18 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-successfulPost = ->
-  $("#status-text").text "friends added! you are now logged out of facebook"
-  $("#status-text").text ""
+showUserText = (notificationString) ->
+  $("#status-text").text notificationString
+  setTimeout (->
+    $("#status-text").text("")
+    return
+  ), 4000
   return
-
 
 $(document).on "ajax:success", ".entrance-form", ->
   console.log "Friends successfully added to the map. Logging out..."
   FB.logout()
-  setTimeout successfulPost(), 3000
+  showUserText "friends added! you are now logged out of facebook"
   console.log "Logged out."
   $("#loginbutton").removeAttr "disabled"
   return
@@ -22,15 +24,6 @@ window.launchEntrancesJS = ->
     pattern: "({{999}}) {{999}}.{{9999}}"
     persistent: true
   	)
-
-    # $(".entrance-form").on "ajax:success", (event, xhr, settings) ->
-    #   alert "ajax success!!"
-    #   return
-    # $(document).on "ajax:success", ".entrance-form", ->
-    #   alert "success!"
-    #   return
-
-
 
   	window.fbAsyncInit = ->
     
@@ -73,7 +66,7 @@ window.launchEntrancesJS = ->
           $("#hidden_submit").click()
       else
         console.log "User cancelled login or did not fully authorize."
-        $("#status-text").text("user cancelled or did not authorize")
+        showUserText "user cancelled or did not authorize"
 
 
 
