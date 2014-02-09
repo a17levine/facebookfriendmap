@@ -95,7 +95,7 @@ class Entrance < ActiveRecord::Base
 			@twilio_client = Twilio::REST::Client.new(ENV['TWILIO_SID'],ENV['TWILIO_TOKEN'])
 			# grabs the URL to send the person, using the user object and graph_id from parameters
 			users_custom_url = Rails.application.routes.url_helpers.graph_user_url(graph_id,user)
-			message = "See your custom guest list & mutual friends at: #{users_custom_url}"
+			message = "See your mutual friends at #{users_custom_url}"
 			# sends text to person with a cute string around it
 			@twilio_client.account.sms.messages.create(
 				:from => "+1#{ENV['TWILIO_PHONE_NUMBER']}", 
