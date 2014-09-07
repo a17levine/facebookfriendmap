@@ -1,0 +1,28 @@
+<div class="row">
+	<h1>All MutualMaps</h1>
+</div>
+
+<div class="row">
+	<table>
+	  <thead>
+	    <tr>
+	      <th width="200">ID</th>
+	      <th>Name</th>
+	      <th width="150">View</th>
+	      <th width="150">Welcome Page</th>
+	      <th width="150">Delete</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% @all_graphs.all.each do |g| %>
+	  		<tr>
+		      <td><%= g.id %></td>
+		      <td>Name Placeholder</td>
+		      <td><%= link_to "View", graph_path(g) %></td>
+		      <td>Welcome Placeholder</td>
+		      <td>Delete Placeholder</td>
+	    	</tr>
+	  	<% end %>
+	  </tbody>
+	</table>
+</div>

@@ -1,5 +1,13 @@
 class GraphController < ApplicationController
 	def index
+		@all_graphs = Graph.all
+	end
+
+	def welcome
+		
+	end
+
+	def show
 		#this is where the graph loads
 
 		@graph = Entrance.create_graph
@@ -8,14 +16,6 @@ class GraphController < ApplicationController
 		  format.html # index.html.erb
 		  format.json { render :json => @graph, layout: false }
 		end
-		
-	end
-
-	def welcome
-		
-	end
-
-	def show
 	end
 
 	def entrance
