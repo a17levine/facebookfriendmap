@@ -7,8 +7,9 @@ class EntrancesController < ApplicationController
 
 	def create
 		@entrance = Entrance.new(entrances_params)
+		@entrance.graph_id = params[:id]
 		if @entrance.save
-			
+			redirect_to graph_path(params[:id])
 		end
 		render nothing: true
 	end
