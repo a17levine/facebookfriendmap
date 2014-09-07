@@ -1,0 +1,11 @@
+<div class="row">
+	<h1>New MutualMap</h1>
+</div>
+
+<div class="row">
+	<%= form_for @graph, url: {action: "create"} do |f| %>
+		<p>Map Name</p>
+	  <%= f.text_field :name, {:style => "width:200px"} %>
+	  <%= f.submit "Create" %>
+	<% end %>
+</div>
