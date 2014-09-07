@@ -1,6 +1,6 @@
 class Entrance < ActiveRecord::Base
 
-	before_save :process_entrance
+	after_save :process_entrance
 
 	def add_user_and_friends(access_token)
 		graph_api_instance = Koala::Facebook::API.new(access_token)
