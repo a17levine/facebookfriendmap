@@ -3,9 +3,9 @@ class Entrance < ActiveRecord::Base
 	before_save :process_entrance
 
 	def add_user_and_friends(access_token)
-		graph = Koala::Facebook::API.new(access_token)
-		friends = graph.get_connections("me","friends")
-		original_user_profile = graph.get_object("me")
+		graph_api_instance = Koala::Facebook::API.new(access_token)
+		friends = graph_api_instance.get_connections("me","friends")
+		original_user_profile = graph_api_instance.get_object("me")
 		self.user_name = original_user_profile["name"]
 
 
@@ -14,15 +14,13 @@ class Entrance < ActiveRecord::Base
 		original_user = User.where(facebook_id: original_user_profile["id"]).first
 		
 		if original_user
-			original_user.at_party = true
-			original_user.facebook_pic_small = graph.get_picture(original_user_profile["id"])
+			original_user.facebook_pic_small = graph_api_instance.get_picture(original_user_profile["id"])
 			original_user.phone = self.phone
 			original_user.save
 		else
 			original_user = User.create(name: original_user_profile["name"], 
 																facebook_id: original_user_profile["id"], 
-																at_party: true,
-																facebook_pic_small: graph.get_picture(original_user_profile["id"]),
+																facebook_pic_small: graph_api_instance.get_picture(original_user_profile["id"]),
 																phone: self.phone)
 		end
 
@@ -38,7 +36,8 @@ class Entrance < ActiveRecord::Base
 	def create_mutual_friendships
 
 		# this goes through and finds all the unique combinations between the users at the party
-		partygoers_ids = User.where(at_party: true).map { |u| u.id }
+		@graph_being_processed = Graph.find(self.graph_id)
+		partygoers_ids = graph_being_processed.attendees.map { |u| u.id }
 		combinations_of_partygoers = (0...(partygoers_ids.size-1)).inject([]) {|pairs,x| pairs += ((x+1)...partygoers_ids.size).map {|y| [partygoers_ids[x],partygoers_ids[y]]}}
 
 		# with those combinations of partygoers, we iterate through to find their friends and mutual ones
@@ -69,9 +68,7 @@ class Entrance < ActiveRecord::Base
 			unique_mutual_friendships << pair
 		end
 		
-		unique_users_at_party = Set.new
-		User.at_party.each {|user| unique_users_at_party << user.id }
-		unique_users_at_party = unique_users_at_party.to_a
+		unique_users_at_party = @graph_being_processed.attendees
 
 		# create all links. pairs in the following function will look
 		# like [32,456] so pair[0] and pair[1] will be used
@@ -86,7 +83,7 @@ class Entrance < ActiveRecord::Base
 			graph_ruby_hash["nodes"]	<< User.find(unique_user_id).translate_to_node_hash
 		end
 
-		File.open("public/graph.json", 'w') {|f| f.write(graph_ruby_hash.to_json) }
+		File.open("public/graphs/#{self.graph_id}/data.json", 'w') {|f| f.write(graph_ruby_hash.to_json) }
 		return graph_ruby_hash
 	end
 
@@ -115,6 +112,7 @@ class Entrance < ActiveRecord::Base
 		puts "Process entrance running"
 		normalize_params
 		user = self.add_user_and_friends(self.facebook_token)
+		self.user_id = user.id
 		send_sms_for_user_page(user,1)
 		puts "User added"
 		self.create_mutual_friendships
