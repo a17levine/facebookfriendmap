@@ -1,28 +1,23 @@
-== README
+# Mutual Map
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Users are
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+People who check in but also Facebook friends who are slurped in from the API.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+## Friendships are
+
+A table of who is friends with who. There should only be one entry for each friendship. 
+
+For example, for `user_id` and for `friend` they could be the flipped but represent the same relationship. This should be avoided by the code.
+
+
+## Mutual friendships are
+
+Each mutual friendship record is one friend that a user shares with one other person at the party.
+
+`user_at_party` is the main user at the party in question
+`user_at_party_2` is the other user at the party who has a mutual friend with `user_at_party`
+`mutual_friend` is the friend that `user_at_party` shares with `user_at_party_2` but that person may not be at the party
+
+Again, if you flipped `user_at_party` and `user_at_party_2`, you'd have the same relationship with two entries which would be bad. The code should avoid that.
