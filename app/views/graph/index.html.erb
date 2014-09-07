@@ -17,7 +17,7 @@
 	  	<% @all_graphs.all.each do |g| %>
 	  		<tr>
 		      <td><%= g.id %></td>
-		      <td>Name Placeholder</td>
+		      <td><%= g.name %></td>
 		      <td><%= link_to "View", graph_path(g) %></td>
 		      <td>Welcome Placeholder</td>
 		      <td>Delete Placeholder</td>
@@ -25,4 +25,8 @@
 	  	<% end %>
 	  </tbody>
 	</table>
+</div>
+
+<div class="row">
+	<%= link_to "Create New Graph", "#"%>
 </div>

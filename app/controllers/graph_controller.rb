@@ -9,12 +9,12 @@ class GraphController < ApplicationController
 
 	def show
 		#this is where the graph loads
-
-		@graph = Entrance.create_graph
+		@graph = Graph.find(params[:id])
+		@graph_json = Entrance.create_graph
 
 		respond_to do |format|
 		  format.html # index.html.erb
-		  format.json { render :json => @graph, layout: false }
+		  format.json { render :json => @graph_json, layout: false }
 		end
 	end
 
