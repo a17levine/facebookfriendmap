@@ -19,8 +19,8 @@
 		      <td><%= g.id %></td>
 		      <td><%= g.name %></td>
 		      <td><%= link_to "View", graph_path(g) %></td>
-		      <td>Welcome Placeholder</td>
-		      <td>Delete Placeholder</td>
+		      <td><%= link_to "Welcome Page", graph_welcome_path(g) %></td>
+		      <td><%=link_to "Delete", graph_path(g.id), 'data-method' => :delete, :class => "delete", :confirm => "Are you sure ?"%></td>
 	    	</tr>
 	  	<% end %>
 	  </tbody>

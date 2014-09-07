@@ -29,7 +29,12 @@ class GraphController < ApplicationController
 		else
 			errors.add("Something went wrong creating this graph")
 		end
-		
+	end
+
+	def destroy
+		@graph = Graph.find(params[:id])
+		@graph.delete
+		redirect_to graph_index_path
 	end
 
 	def entrance
