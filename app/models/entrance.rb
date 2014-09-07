@@ -36,8 +36,7 @@ class Entrance < ActiveRecord::Base
 	def create_mutual_friendships
 
 		# this goes through and finds all the unique combinations between the users at the party
-		@graph_being_processed = Graph.find(self.graph_id)
-		partygoers_ids = graph_being_processed.attendees.map { |u| u.id }
+		partygoers_ids = Graph.find(self.graph_id).attendees.map { |u| u.id }
 		combinations_of_partygoers = (0...(partygoers_ids.size-1)).inject([]) {|pairs,x| pairs += ((x+1)...partygoers_ids.size).map {|y| [partygoers_ids[x],partygoers_ids[y]]}}
 
 		# with those combinations of partygoers, we iterate through to find their friends and mutual ones
@@ -68,7 +67,7 @@ class Entrance < ActiveRecord::Base
 			unique_mutual_friendships << pair
 		end
 		
-		unique_users_at_party = @graph_being_processed.attendees
+		unique_users_at_party = Graph.find(self.graph_id).attendees
 
 		# create all links. pairs in the following function will look
 		# like [32,456] so pair[0] and pair[1] will be used
