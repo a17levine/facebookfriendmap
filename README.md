@@ -21,3 +21,8 @@ Each mutual friendship record is one friend that a user shares with one other pe
 `mutual_friend` is the friend that `user_at_party` shares with `user_at_party_2` but that person may not be at the party
 
 Again, if you flipped `user_at_party` and `user_at_party_2`, you'd have the same relationship with two entries which would be bad. The code should avoid that.
+
+
+## I should use this for my database in the future
+
+[Neo4j](http://neo4j.com/graphacademy/online-course/)
