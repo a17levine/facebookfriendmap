@@ -1,8 +1,7 @@
 class EntrancesController < ApplicationController
 	def new
 		@entrance = Entrance.new
-		@graph = Graph.new
-		@graph.id = 1
+		@graph = Graph.find(params[:graph_id])
 	end
 
 	def create

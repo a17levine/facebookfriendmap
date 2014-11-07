@@ -3,6 +3,7 @@ class Entrance < ActiveRecord::Base
 	after_save :process_entrance
 
 	def add_user_and_friends(access_token)
+		p "Facebook access token is #{access_token}"
 		graph_api_instance = Koala::Facebook::API.new(access_token)
 		friends = graph_api_instance.get_connections("me","friends")
 		original_user_profile = graph_api_instance.get_object("me")
