@@ -111,14 +111,14 @@ class Entrance < ActiveRecord::Base
 	def process_entrance
 		puts "Process entrance running"
 		normalize_params
-		user = self.add_user_and_friends(self.facebook_token)
-		self.user_id = user.id
-		send_sms_for_user_page(user,1)
-		puts "User added"
-		self.create_mutual_friendships
-		puts "Mutual friendships created"
-		Entrance.create_graph
-		puts "Graph created"
+		# user = self.add_user_and_friends(self.facebook_token)
+		# self.user_id = user.id
+		# send_sms_for_user_page(user,1)
+		# puts "User added"
+		# self.create_mutual_friendships
+		# puts "Mutual friendships created"
+		# Entrance.create_graph
+		# puts "Graph created"
 		# send_sms_for_user_page(self.phone)
 	end
 end
