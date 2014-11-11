@@ -9,6 +9,6 @@ class UsersController < ApplicationController
 	end
 
 	def index
-		@all_guests = User.where(:at_party => true)
+		@all_guests = Graph.find(params[:graph_id]).users
 	end
 end
