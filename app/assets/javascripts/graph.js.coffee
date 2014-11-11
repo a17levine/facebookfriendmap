@@ -10,12 +10,11 @@
 
 
 window.createGraph = ->
-  $("svg").remove()
   width = window.innerWidth
   height = window.innerHeight
   svg = d3.select("body").append("svg").attr("width", width).attr("height", height)
   force = d3.layout.force().gravity(.5).distance(400).charge(-500).size([width, height])
-  d3.json "/graphs/1/data.json", (error, json) ->
+  d3.json "/graphs/" + $("body").attr("data-graph-id") + "/data.json", (error, json) ->
     force.nodes(json.nodes).links(json.links).start()
     link = svg.selectAll(".link").data(json.links).enter().append("line").attr("class", "link").style("stroke-width", (d) ->
       Math.sqrt(d.value) / 8

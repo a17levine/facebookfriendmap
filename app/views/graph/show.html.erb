@@ -1,4 +1,7 @@
-<h1>mutualmap <span style="color:red">//</span> <%= @graph.name %></h1>
+<body data-graph-id="<%= @graph.id %>">
+  <h1>mutualmap <span style="color:red">//</span> <%= @graph.name %></h1>
+</body>
+
 
 <style>
 
@@ -25,7 +28,6 @@ svg {
 }
 
 </style>
-<body>
 
 <% content_for :javascript do %>
 	<script type="text/javascript">

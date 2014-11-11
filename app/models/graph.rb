@@ -16,7 +16,6 @@ class Graph < ActiveRecord::Base
       unique_mutual_friendships << pair
     end
     
-    # binding.pry
     unique_users_at_party = self.users
 
     # create all links. pairs in the following function will look

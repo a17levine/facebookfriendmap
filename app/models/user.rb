@@ -9,17 +9,6 @@ class User < ActiveRecord::Base
 		return node_hash
 	end
 
-	def self.at_party
-		User.where(at_party:true)
-	end
-
-	def self.add_guest_and_process(access_token)
-		Entrance.add_user_and_friends(access_token)
-		Entrance.create_mutual_friendships
-		Entrance.create_graph
-	end
-
-
 	# returns MutualFriendship objects which include user
 
 	def mutual_friendships_ids
@@ -53,7 +42,7 @@ class User < ActiveRecord::Base
 			hash[:mutual_friends] = unique_mutual_friends.map {|umf| User.find(umf)}
 			hash
 		end
-		mutual_friendships_array.sort_by! {|mf| mf[:mutual_friends].count}.reverse!
+		mutual_friendships_array.sort_by! {|mf| mf[:mutual_friends].count}
 		mutual_friendships_array
 	end
 
