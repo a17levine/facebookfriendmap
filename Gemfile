@@ -15,7 +15,10 @@ gem "font-awesome-rails"
 group :development do
 	gem 'hirb'
 	gem 'quiet_assets'
+	gem 'better_errors'
+	gem 'binding_of_caller'
 	gem 'pry'
+	gem 'pry-byebug'
 	gem 'figaro'
 	gem 'sqlite3'
 end

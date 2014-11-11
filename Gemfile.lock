@@ -28,7 +28,16 @@ GEM
     addressable (2.3.5)
     arel (4.0.1)
     atomic (1.1.14)
+    better_errors (2.0.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.1.4)
+    byebug (2.5.0)
+      columnize (~> 0.3.6)
+      debugger-linecache (~> 1.2.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coderay (1.1.0)
@@ -39,9 +48,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    columnize (0.3.6)
     connection_pool (1.2.0)
     d3-rails (3.3.7)
       railties (>= 3.1)
+    debug_inspector (0.0.2)
+    debugger-linecache (1.2.0)
     erubis (2.7.0)
     execjs (2.0.2)
     faraday (0.8.8)
@@ -84,6 +96,9 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry-byebug (1.2.1)
+      byebug (~> 2.2)
+      pry (~> 0.9.12)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -161,6 +176,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  better_errors
+  binding_of_caller
   coffee-rails (~> 4.0.0)
   d3-rails
   figaro
@@ -172,6 +189,7 @@ DEPENDENCIES
   koala
   pg
   pry
+  pry-byebug
   quiet_assets
   rails (= 4.0.1)
   rails_12factor

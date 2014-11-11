@@ -12,8 +12,8 @@ class GraphController < ApplicationController
 		@graph = Graph.find(params[:id])
 		
 		if Entrance.where(:graph_id => params[:id]).any?
-			@graph_json = Entrance.create_graph
-
+			@graph_json = JSON.parse( IO.read("public/graphs/#{params[:id]}/data.json") )
+			
 			respond_to do |format|
 			  format.html
 			  format.json { render :json => @graph_json, layout: false }
