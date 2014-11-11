@@ -23,7 +23,7 @@ window.createGraph = ->
     node = svg.selectAll(".node").data(json.nodes).enter().append("g").attr("class", "node").call(force.drag)
     node.append("image").attr("xlink:href", (d) ->
       d.facebook_photo
-    ).attr("x", -8).attr("y", -8).attr("width", 30).attr "height", 30
+    ).attr("x", -8).attr("y", -8).attr("width", 60).attr("height", 60)
     
     # node.append("text")
     #     .attr("dx", 25)
