@@ -16,7 +16,7 @@ class Graph < ActiveRecord::Base
       unique_mutual_friendships << pair
     end
     
-    unique_users_at_party = self.users
+    unique_users_at_party = self.users.map {|u| u.id}
 
     # create all links. pairs in the following function will look
     # like [32,456] so pair[0] and pair[1] will be used
