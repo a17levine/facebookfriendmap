@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 	end
 
 	def index
-		@all_guests = Graph.find(params[:graph_id]).users
+		@graph = Graph.find(params[:graph_id])
+		@all_guests = @graph.users
 	end
 end

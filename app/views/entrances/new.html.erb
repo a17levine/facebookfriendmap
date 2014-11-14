@@ -1,9 +1,15 @@
 <% content_for :title, "mutualmap | welcome" %>
+<h1 class='graph-title'>mutualmap <span style="color:red">//</span> <%= @graph.name %></h1>
+<nav class='graph-nav'>
+  <ul>
+  	<li><%= link_to "view map", graph_path(@graph) %></li>
+    <li><%= link_to "guest list", graph_users_path(@graph) %></li>
+  </ul>
+</nav>
+
 <div class="row">
 	<div class="small-12 large-6 columns">
-		<h1>mutualmap</h1>
-		
-		<h4>who here knows your friends?</h4>
+		<h2>1. sign in</h2>
 		<small class='row'>check in with your cell # + facebook account</small>
 		<%= form_for [@graph, @entrance], :html => {:class => 'row entrance-form'}, remote: true do |f| %>
 			<div class='small-6 columns phone-container'>
@@ -16,10 +22,23 @@
 		<div class='row small-2 large-2 columns'>
 			<button id="loginbutton">sign-in with facebook</button>
 			<br>
-			<%= link_to "View Map", @graph %>
 			<p id="status-text"></p>
 			<img class="status-loading" style="display:none"src="<%= image_path("loading.gif") %>" alt="loading">
 		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="small-12 large-6 columns">
+		<h2>2. open your link</h2>
+		<h4></h4>
+	</div>
+</div>
+
+<div class="row">
+	<div class="small-12 large-6 columns">
+		<h2>3. meet people!</h2>
+		<h4></h4>
 	</div>
 </div>
 

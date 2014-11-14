@@ -1,3 +1,26 @@
-// Place all the styles related to the graph controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.graph-title {
+	text-align: center;
+}
+
+.graph-nav ul {
+	text-align: center;
+	list-style: none;
+}
+
+svg {
+  background-color: #3498db;
+}
+
+.link {
+  /*stroke: #3B5998; facebook blue*/
+  stroke: white;
+  stroke-width: 1px;
+}
+
+.node text {
+  pointer-events: none;
+  font: 30px sans-serif;
+}
+
+.node image {
+}
