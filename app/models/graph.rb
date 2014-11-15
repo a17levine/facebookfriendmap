@@ -35,4 +35,8 @@ class Graph < ActiveRecord::Base
     return graph_ruby_hash
   end
 
+  def destroy
+    # find all friendships that include a user at the party
+  end
+
 end

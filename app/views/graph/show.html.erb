@@ -1,0 +1,24 @@
+<body data-graph-id="<%= @graph.id %>">
+  <h1 class='graph-title'>mutualmap <span style="color:red">//</span> <%= @graph.name %></h1>
+  <nav class='graph-nav'>
+    <ul>
+      <li><%= link_to "new guest", new_graph_entrance_path(@graph) %></li>
+      <li><%= link_to "guest list", graph_users_path(@graph) %></li>
+    </ul>
+  </nav>
+</body>
+
+<style type="text/css">
+  body {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+</style>
+
+
+<% content_for :javascript do %>
+	<script type="text/javascript">
+		createGraph();
+    // start();
+	</script>
+<% end %>
